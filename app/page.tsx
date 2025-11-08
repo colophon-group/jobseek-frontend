@@ -1,65 +1,191 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
+const NAV_ITEMS = [
+    { label: "Product", href: "#" },
+    { label: "Features", href: "#" },
+    { label: "Pricing", href: "#" },
+    { label: "Company", href: "#" },
+];
+
+function MobileMenu({
+                        open,
+                        onClose,
+                    }: {
+    open: boolean;
+    onClose: () => void;
+}) {
+    if (!open) return null;
+
+    return (
+        <>
+            <div className="fixed inset-0 z-50 bg-black/60 lg:hidden" onClick={onClose} />
+            <div className="fixed inset-y-0 right-0 z-50 w-72 bg-black px-4 py-6 shadow-lg ring-1 ring-white/10 lg:hidden">
+                <div className="flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-2">
+                        <Image
+                            src="/js_wide_logo_white.svg"
+                            alt="Job Seek"
+                            width={128}
+                            height={32}
+                        />
+                    </Link>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="rounded-md p-2 text-zinc-200"
+                    >
+                        <span className="sr-only">Close menu</span>
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            className="h-6 w-6"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M6 18 18 6M6 6l12 12"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </button>
+                </div>
+                <div className="mt-6 space-y-2">
+                    {NAV_ITEMS.map((item) => (
+                        <a
+                            key={item.label}
+                            href={item.href}
+                            className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-white/5"
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                </div>
+                <div className="mt-4 border-t border-white/5 pt-4">
+                    <a
+                        href="#"
+                        className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-white/5"
+                    >
+                        Log in
+                    </a>
+                </div>
+            </div>
+        </>
+    );
+}
+
+function Header({
+                    onOpenMobile,
+                }: {
+    onOpenMobile: () => void;
+}) {
+    return (
+        <header className="sticky top-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur">
+            <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 lg:px-6">
+                <div className="flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-2">
+                        <Image
+                            src="/js_wide_logo_white.svg"
+                            alt="Job Seek"
+                            width={144}
+                            height={36}
+                            priority
+                        />
+                    </Link>
+                </div>
+
+                {/* Desktop nav */}
+                <div className="hidden items-center gap-8 lg:flex">
+                    {NAV_ITEMS.map((item) => (
+                        <a
+                            key={item.label}
+                            href={item.href}
+                            className="text-sm font-medium hover:text-zinc-200"
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                </div>
+
+                <div className="hidden lg:flex">
+                    <a href="#" className="text-sm font-semibold hover:text-zinc-200">
+                        Log in →
+                    </a>
+                </div>
+
+                {/* Mobile button */}
+                <button
+                    type="button"
+                    onClick={onOpenMobile}
+                    className="inline-flex items-center justify-center rounded-md p-2 text-zinc-200 lg:hidden"
+                >
+                    <span className="sr-only">Open main menu</span>
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-6 w-6"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </button>
+            </nav>
+        </header>
+    );
+}
+
+function Hero() {
+    return (
+        <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl flex-col justify-center px-4 py-16 lg:px-6">
+            <div className="max-w-2xl">
+                <p className="text-sm font-medium text-zinc-400">
+                    Keep your hand on the job market pulse.
+                </p>
+                <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                    Find relevant roles faster.
+                </h1>
+                <p className="mt-6 text-pretty text-base text-zinc-400 sm:text-lg">
+                    Subscribe to updates from companies, track applications, and never miss new openings.
+                    Built to sit on top of your job hunt, not get in the way.
+                </p>
+                <div className="mt-10 flex flex-wrap items-center gap-4">
+                    <a
+                        href="#"
+                        className="rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-black hover:bg-zinc-100"
+                    >
+                        Get started
+                    </a>
+                    <a
+                        href="#"
+                        className="text-sm font-semibold text-white hover:text-zinc-200"
+                    >
+                        Learn more →
+                    </a>
+                </div>
+            </div>
+        </main>
+    );
+}
 
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    const [mobileOpen, setMobileOpen] = useState(false);
+
+    return (
+        <div className="min-h-screen bg-black text-white">
+            <Header onOpenMobile={() => setMobileOpen(true)} />
+            <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+            <Hero />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    );
 }
