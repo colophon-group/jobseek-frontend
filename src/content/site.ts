@@ -80,4 +80,8 @@ export const siteCopy = {
             },
         ],
     },
+    themeSwitch: {
+        lightAriaLabel: "Switch to dark mode",
+        darkAriaLabel: "Switch to light mode",
+    }
 };

@@ -4,6 +4,7 @@ import { StackProvider, StackTheme } from "@stackframe/stack";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { stackClientApp } from "@/stack/client";
+import { cookies } from "next/headers";
 import { Geist } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
 import { siteCopy } from "@/content/site";
@@ -48,9 +49,11 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    const cookieStore = await cookies();
+    const initialTheme = cookieStore.get("theme")?.value === "light" ? "light" : "dark";
     return (
-        <html lang="en" className="dark">
+        <html lang="en" className={initialTheme === "dark" ? "dark" : ""} data-theme={initialTheme}>
         <body
             className={`${geistSans.variable} ${jetbrainsMono.variable} antialiased bg-[var(--background)] text-[var(--foreground)]`}
         >
@@ -58,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SpeedInsights />
         <StackProvider app={stackClientApp}>
             <StackTheme>
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider initialTheme={initialTheme}>{children}</ThemeProvider>
             </StackTheme>
         </StackProvider>
         </body>

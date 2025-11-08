@@ -12,9 +12,11 @@ export const ThemeContext = createContext<{
     setMode: () => {},
 });
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    // must match SSR (<html className="dark">)
-    const [mode, setMode] = useState<ThemeMode>("dark");
+export function ThemeProvider({ children, initialTheme = "dark" }: { children: React.ReactNode; initialTheme?: ThemeMode }) {
+    const [mode, setMode] = useState<ThemeMode>(() => {
+        if (typeof document === "undefined") return initialTheme;
+        return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+    });
 
     // read saved value, but don't set state synchronously in the effect
     useEffect(() => {
@@ -36,9 +38,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         } else {
             root.classList.remove("dark");
         }
-        if (typeof window !== "undefined") {
-            localStorage.setItem("theme", mode);
-        }
+        localStorage.setItem("theme", mode);
+        document.cookie = `theme=${mode}; path=/; max-age=31536000`
     }, [mode]);
 
     return (

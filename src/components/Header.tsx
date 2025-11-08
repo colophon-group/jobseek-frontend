@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { siteCopy } from "@/content/site";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { ThemedImage } from "@/components/ThemedImage";
 
-const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"), { ssr: false });
-const LoginIcon = dynamic(() => import("@mui/icons-material/Login"), { ssr: false });
+// static imports -> no flashing
+import MenuIcon from "@mui/icons-material/Menu";
+import LoginIcon from "@mui/icons-material/Login";
 
 type HeaderProps = {
     onOpenMobileAction: () => void;

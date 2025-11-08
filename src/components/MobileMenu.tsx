@@ -65,7 +65,7 @@ export function MobileMenu({ open, onCloseAction }: MobileMenuProps) {
 
                 <div className="mt-4 border-t border-white/5 pt-4">
                     <a
-                        href="#"
+                        href={siteCopy.nav.login.href}
                         className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-white/5"
                     >
                         {siteCopy.auth.login}
