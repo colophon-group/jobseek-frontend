@@ -3,13 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-const NAV_ITEMS = [
-    { label: "Product", href: "#" },
-    { label: "Features", href: "#" },
-    { label: "Pricing", href: "#" },
-    { label: "Company", href: "#" },
-];
+import { siteCopy } from "@/content/site";
 
 function MobileMenu({
                         open,
@@ -22,13 +16,16 @@ function MobileMenu({
 
     return (
         <>
-            <div className="fixed inset-0 z-50 bg-black/60 lg:hidden" onClick={onClose} />
+            <div
+                className="fixed inset-0 z-50 bg-black/60 lg:hidden"
+                onClick={onClose}
+            />
             <div className="fixed inset-y-0 right-0 z-50 w-72 bg-black px-4 py-6 shadow-lg ring-1 ring-white/10 lg:hidden">
                 <div className="flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2">
                         <Image
                             src="/js_wide_logo_white.svg"
-                            alt="Job Seek"
+                            alt={siteCopy.logoAlt}
                             width={128}
                             height={32}
                         />
@@ -56,7 +53,7 @@ function MobileMenu({
                     </button>
                 </div>
                 <div className="mt-6 space-y-2">
-                    {NAV_ITEMS.map((item) => (
+                    {siteCopy.nav.map((item) => (
                         <a
                             key={item.label}
                             href={item.href}
@@ -71,7 +68,7 @@ function MobileMenu({
                         href="#"
                         className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-white/5"
                     >
-                        Log in
+                        {siteCopy.auth.login}
                     </a>
                 </div>
             </div>
@@ -91,7 +88,7 @@ function Header({
                     <Link href="/" className="flex items-center gap-2">
                         <Image
                             src="/js_wide_logo_white.svg"
-                            alt="Job Seek"
+                            alt={siteCopy.logoAlt}
                             width={144}
                             height={36}
                             priority
@@ -101,7 +98,7 @@ function Header({
 
                 {/* Desktop nav */}
                 <div className="hidden items-center gap-8 lg:flex">
-                    {NAV_ITEMS.map((item) => (
+                    {siteCopy.nav.map((item) => (
                         <a
                             key={item.label}
                             href={item.href}
@@ -114,7 +111,7 @@ function Header({
 
                 <div className="hidden lg:flex">
                     <a href="#" className="text-sm font-semibold hover:text-zinc-200">
-                        Log in →
+                        {siteCopy.auth.login} →
                     </a>
                 </div>
 
@@ -150,27 +147,26 @@ function Hero() {
         <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl flex-col justify-center px-4 py-16 lg:px-6">
             <div className="max-w-2xl">
                 <p className="text-sm font-medium text-zinc-400">
-                    Keep your hand on the job market pulse.
+                    {siteCopy.hero.eyebrow}
                 </p>
                 <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                    Find relevant roles faster.
+                    {siteCopy.hero.title}
                 </h1>
                 <p className="mt-6 text-pretty text-base text-zinc-400 sm:text-lg">
-                    Subscribe to updates from companies, track applications, and never miss new openings.
-                    Built to sit on top of your job hunt, not get in the way.
+                    {siteCopy.hero.description}
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                     <a
                         href="#"
                         className="rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-black hover:bg-zinc-100"
                     >
-                        Get started
+                        {siteCopy.hero.primaryCta}
                     </a>
                     <a
                         href="#"
                         className="text-sm font-semibold text-white hover:text-zinc-200"
                     >
-                        Learn more →
+                        {siteCopy.hero.secondaryCta}
                     </a>
                 </div>
             </div>
