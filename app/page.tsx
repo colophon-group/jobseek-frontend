@@ -5,7 +5,8 @@ import { Header } from "@/components/Header";
 import { MobileMenu } from "@/components/MobileMenu";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
-import { Footer } from "@/components/Footer"
+import { Pricing } from "@/components/Pricing";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function Home() {
             <MobileMenu open={mobileOpen} onCloseAction={() => setMobileOpen(false)} />
             <Hero />
             <Features />
+            <Pricing />
             <Footer />
         </div>
     );

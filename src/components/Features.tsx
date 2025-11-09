@@ -18,7 +18,7 @@ export function Features() {
     const screenshot = content.screenshot;
 
     return (
-        <section className="feature-section section-pad">
+        <section id="features" className="feature-section section-pad">
             <div className="container-6xl grid-2-lg gap-12">
                 {/* Text column */}
                 <div className="feature-text-col lg:pt-4 lg:pr-10">

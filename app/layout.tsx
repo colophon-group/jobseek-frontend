@@ -5,12 +5,11 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { stackClientApp } from "@/stack/client";
 import { cookies } from "next/headers";
-import { Geist } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
 import { siteCopy } from "@/content/site";
 import "./globals.css";
 
-const geistSans = Geist({
+const jetbrainsSans = JetBrains_Mono({
     variable: "--font-sans",
     subsets: ["latin"],
 });
@@ -55,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     return (
         <html lang="en" className={initialTheme === "dark" ? "dark" : ""} data-theme={initialTheme}>
         <body
-            className={`${geistSans.variable} ${jetbrainsMono.variable} antialiased bg-[var(--background)] text-[var(--foreground)]`}
+            className={`${jetbrainsSans.variable} ${jetbrainsMono.variable} antialiased bg-[var(--background)] text-[var(--foreground)]`}
         >
         <Analytics />
         <SpeedInsights />

@@ -12,6 +12,18 @@
     --surface: rgba(255, 255, 255, 0.85);
     --border-soft: rgba(24, 24, 27, 0.06);
     --ring-soft: rgba(24, 24, 27, 0.05);
+    --info-color: #1d4ed8;
+    --info-bg: rgba(37, 99, 235, 0.08);
+    --info-border: rgba(37, 99, 235, 0.25);
+    --success-color: #15803d;
+    --success-bg: rgba(34, 197, 94, 0.1);
+    --success-border: rgba(22, 163, 74, 0.25);
+    --warning-color: #b45309;
+    --warning-bg: rgba(251, 146, 60, 0.15);
+    --warning-border: rgba(234, 88, 12, 0.25);
+    --error-color: #b91c1c;
+    --error-bg: rgba(248, 113, 113, 0.18);
+    --error-border: rgba(239, 68, 68, 0.35);
 
     /* spacing tokens */
     --spacing-3: 0.75rem;
@@ -33,6 +45,21 @@
     --surface: rgba(0, 0, 0, 0.8);
     --border-soft: rgba(255, 255, 255, 0.08);
     --ring-soft: rgba(255, 255, 255, 0.06);
+    --info-color: #93c5fd;
+    --info-bg: rgba(59, 130, 246, 0.12);
+    --info-border: rgba(147, 197, 253, 0.3);
+    --info-color-dark: #bfdbfe;
+    --info-bg-dark: rgba(59, 130, 246, 0.16);
+    --info-border-dark: rgba(191, 219, 254, 0.35);
+    --success-color: #86efac;
+    --success-bg: rgba(34, 197, 94, 0.1);
+    --success-border: rgba(34, 197, 94, 0.35);
+    --warning-color: #fdba74;
+    --warning-bg: rgba(251, 146, 60, 0.18);
+    --warning-border: rgba(251, 146, 60, 0.4);
+    --error-color: #fca5a5;
+    --error-bg: rgba(248, 113, 113, 0.2);
+    --error-border: rgba(248, 113, 113, 0.45);
 }
 
 @theme inline {
@@ -246,6 +273,106 @@ body {
     margin-top: var(--spacing-6);
 }
 
+.stack-lg > * + * {
+    margin-top: var(--spacing-12);
+}
+
+.article-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--muted);
+}
+.article-intro h1 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 600;
+    color: var(--foreground);
+    letter-spacing: -0.01em;
+}
+.article-intro p {
+    color: inherit;
+}
+
+.md-article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+}
+
+.md-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--muted);
+}
+.md-block > h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    color: var(--foreground);
+    letter-spacing: -0.01em;
+}
+.md-block > h3 {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    font-weight: 600;
+    color: var(--foreground);
+}
+.md-block > p {
+    color: inherit;
+}
+.md-block ul,
+.md-block ol {
+    margin-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.md-block ul {
+    list-style: disc;
+}
+.md-block ol {
+    list-style: decimal;
+}
+
+.text-info {
+    display: flex;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+    background: var(--info-bg);
+    border: 1px solid var(--info-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-4);
+    color: var(--foreground);
+    font-weight: 500;
+}
+.dark .text-info {
+    background: var(--info-bg);
+    border-color: var(--info-border);
+}
+.text-info .inline-icon {
+    margin-top: 0.2rem;
+    color: var(--info-color);
+}
+
+
+.md-block code,
+.article-intro code {
+    font-family: var(--font-mono), "JetBrains Mono", monospace;
+    font-size: 0.95em;
+    background: rgba(15, 15, 20, 0.08);
+    border-radius: 0.35rem;
+    padding: 0.1rem 0.35rem;
+    color: var(--foreground);
+}
+.dark .md-block code,
+.dark .article-intro code {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--foreground);
+}
+
 /* feature text column like Tailwind demo */
 .feature-text-col {
     /* on large screens keep it from stretching too wide */
@@ -330,3 +457,201 @@ body {
     }
 }
 
+/* ===== pricing ===== */
+.pricing-shell {
+    position: relative;
+    margin-inline: auto;
+    border-radius: calc(var(--radius-xl) * 2);
+    background: var(--background);
+    border: 1px solid var(--border-soft);
+    color: var(--foreground);
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: var(--shadow-2xl);
+}
+.dark .pricing-shell {
+    background: var(--background);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.pricing-inner {
+    position: relative;
+    z-index: 1;
+    padding: clamp(2rem, 5vw, 4.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+}
+
+.pricing-header {
+    text-align: center;
+}
+
+.pricing-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-strong);
+}
+
+.pricing-description {
+    margin-top: var(--spacing-4);
+    margin-inline: auto;
+    max-width: 42rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.pricing-grid {
+    display: grid;
+    gap: var(--spacing-6);
+}
+@media (min-width: 1024px) {
+    .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.pricing-tier {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--spacing-6);
+    padding: var(--spacing-8);
+    border-radius: calc(var(--radius-xl) * 1.5);
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-xl);
+    color: var(--foreground);
+}
+.dark .pricing-tier {
+    background: rgba(24, 24, 27, 0.85);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.pricing-tier.pricing-tier--highlight {
+    background: #0b0b0f;
+    color: #ffffff;
+    border-color: #0b0b0f;
+}
+.dark .pricing-tier.pricing-tier--highlight {
+    background: #ffffff;
+    color: #000000;
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.pricing-tier-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-strong);
+}
+.pricing-tier.pricing-tier--highlight .pricing-tier-name {
+    color: inherit;
+}
+
+.pricing-price {
+    margin-top: var(--spacing-4);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+.pricing-price span:first-child {
+    font-size: 2.75rem;
+    color: inherit;
+}
+.pricing-price span:last-child {
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+.pricing-tier.pricing-tier--highlight .pricing-price span:last-child {
+    color: rgba(255, 255, 255, 0.75);
+}
+.dark .pricing-tier.pricing-tier--highlight .pricing-price span:last-child {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.pricing-tier-copy {
+    margin-top: var(--spacing-4);
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+.pricing-tier.pricing-tier--highlight .pricing-tier-copy {
+    color: rgba(255, 255, 255, 0.85);
+}
+.dark .pricing-tier.pricing-tier--highlight .pricing-tier-copy {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.pricing-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    font-size: 0.95rem;
+    color: var(--foreground);
+}
+.pricing-tier.pricing-tier--highlight .pricing-feature-list {
+    color: rgba(255, 255, 255, 0.95);
+}
+.dark .pricing-tier.pricing-tier--highlight .pricing-feature-list {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.pricing-feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.pricing-feature-icon {
+    color: currentColor;
+}
+.pricing-tier.pricing-tier--highlight .pricing-feature-icon {
+    color: currentColor;
+}
+
+.pricing-cta {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0.9rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--foreground);
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    transition: background 150ms ease, border 150ms ease, color 150ms ease;
+}
+.pricing-cta:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+.dark .pricing-cta:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.pricing-cta--accent {
+    background: var(--foreground);
+    color: var(--background);
+    border-color: var(--foreground);
+}
+.pricing-tier.pricing-tier--highlight .pricing-cta--accent {
+    background: #ffffff;
+    color: #0b0b0f;
+    border-color: #ffffff;
+}
+.dark .pricing-tier.pricing-tier--highlight .pricing-cta--accent {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+}
+.pricing-cta--accent:hover {
+    opacity: 0.9;
+}
+.pricing-tier.pricing-tier--highlight .pricing-cta--accent:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+.dark .pricing-tier.pricing-tier--highlight .pricing-cta--accent:hover {
+    background: rgba(0, 0, 0, 0.85);
+}
