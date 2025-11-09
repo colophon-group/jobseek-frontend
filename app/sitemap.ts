@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return entries.map((entry) => ({
         url: `${baseUrl}${entry.path === "/" ? "" : entry.path}`,
         lastModified: new Date(),
-        changeFrequency: entry.changeFrequency ?? "weekly",
+        changeFrequency: (entry.changeFrequency ?? "weekly") as MetadataRoute.Sitemap[number]["changeFrequency"],
         priority: entry.priority ?? 0.5,
     }));
 }
