@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { stackClientApp } from "@/stack/client";
 import { cookies } from "next/headers";
 import { JetBrains_Mono } from "next/font/google";
-import { siteCopy } from "@/content/site";
+import { createPageMetadata } from "@/lib/metadata";
 import "./globals.css";
 
 const jetbrainsSans = JetBrains_Mono({
@@ -19,34 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
     subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-    title: siteCopy.name,
-    description: siteCopy.hero.description,
-    creator: siteCopy.creator,
-    applicationName: siteCopy.name,
-    authors: siteCopy.authors,
-    referrer: "origin",
-    robots: {
-        index: true,
-        follow: true,
-    },
-    openGraph: {
-        type: "website",
-        url: siteCopy.url,
-        title: siteCopy.name,
-        description: siteCopy.hero.description,
-        siteName: siteCopy.name,
-        images: [
-            {
-                url: siteCopy.logoUrl,
-                alt: siteCopy.logoAlt,
-                width: siteCopy.logoWidth,
-                height: siteCopy.logoHeight,
-                type: "image/svg+xml",
-            },
-        ],
-    },
-};
+export const metadata: Metadata = createPageMetadata({ path: "/" });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     const cookieStore = await cookies();

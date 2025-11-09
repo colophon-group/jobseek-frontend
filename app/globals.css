@@ -45,21 +45,18 @@
     --surface: rgba(0, 0, 0, 0.8);
     --border-soft: rgba(255, 255, 255, 0.08);
     --ring-soft: rgba(255, 255, 255, 0.06);
-    --info-color: #93c5fd;
-    --info-bg: rgba(59, 130, 246, 0.12);
-    --info-border: rgba(147, 197, 253, 0.3);
-    --info-color-dark: #bfdbfe;
-    --info-bg-dark: rgba(59, 130, 246, 0.16);
-    --info-border-dark: rgba(191, 219, 254, 0.35);
+    --info-color: #bfdbfe;
+    --info-bg: rgba(59, 130, 246, 0.16);
+    --info-border: rgba(191, 219, 254, 0.35);
     --success-color: #86efac;
-    --success-bg: rgba(34, 197, 94, 0.1);
-    --success-border: rgba(34, 197, 94, 0.35);
+    --success-bg: rgba(34, 197, 94, 0.2);
+    --success-border: rgba(34, 197, 94, 0.45);
     --warning-color: #fdba74;
-    --warning-bg: rgba(251, 146, 60, 0.18);
-    --warning-border: rgba(251, 146, 60, 0.4);
+    --warning-bg: rgba(251, 146, 60, 0.28);
+    --warning-border: rgba(251, 146, 60, 0.45);
     --error-color: #fca5a5;
-    --error-bg: rgba(248, 113, 113, 0.2);
-    --error-border: rgba(248, 113, 113, 0.45);
+    --error-bg: rgba(248, 113, 113, 0.3);
+    --error-border: rgba(248, 113, 113, 0.5);
 }
 
 @theme inline {
@@ -166,6 +163,23 @@ body {
 }
 .dark .icon-btn:hover {
     background: rgba(255, 255, 255, 0.05);
+}
+
+.header-dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--foreground);
+    color: var(--background);
+    border: 1px solid transparent;
+    transition: opacity 150ms ease;
+}
+.header-dashboard-btn:hover {
+    opacity: 0.85;
 }
 
 /* ===== feature ===== */

@@ -1,6 +1,7 @@
 export const siteCopy = {
     url: "https://jobseek-frontend-bice.vercel.app/",
     domain: "jobseek-frontend-bice.vercel.app",
+    repoUrl: "https://github.com/colophon-group/jobseek-frontend",
     logoUrl: "https://jobseek-frontend-bice.vercel.app/js_logo_black_circle.svg",
     logoWidth: 500,
     logoHeight: 500,
@@ -20,6 +21,7 @@ export const siteCopy = {
         features: {label: "Features", href: "/#features", hide: false},
         pricing: {label: "Pricing", href: "/#pricing", hide: false},
         company: {label: "How do we index jobs?", href: "/how-we-index", hide: false},
+        license: {label: "License", href: "/license", hide: true},
         login: {label: "Log in", href: "/handler/signup", hide: true},
         dashboard: {label: "Dashboard", href: "/dashboard", hide: true},
     },
@@ -111,7 +113,7 @@ export const siteCopy = {
         closeMenu: "Close menu"
     },
     footer: {
-        text: "All rights reserved.",
+        text: "Released under the MIT License. Job data is CC BY-NC 4.0.",
         links: [
             {
                 label: "GitHub",
@@ -121,18 +123,33 @@ export const siteCopy = {
                 label: "Contact",
                 href: "mailto:business@colophon-group.org",
             },
+            {
+                label: "License",
+                href: "/license",
+            },
         ],
     },
     themeSwitch: {
         lightAriaLabel: "Switch to dark mode",
         darkAriaLabel: "Switch to light mode",
     },
+    seo: {
+        disallow: ["/dashboard", "/handler/"],
+        sitemap: [
+            { path: "/", changeFrequency: "weekly", priority: 1 },
+            { path: "/how-we-index", changeFrequency: "monthly", priority: 0.6 },
+            { path: "/license", changeFrequency: "monthly", priority: 0.5 },
+        ],
+    },
     indexing: {
         hero: {
             eyebrow: "Indexing policy",
             title: "How we find and process job postings",
             description:
-                "Job Seek is a search engine for both active candidates and professionals who passively track the market—it surfaces fresh roles while staying respectful of employer infrastructure. This page documents exactly how our crawler behaves, the controls that keep it polite, and how jobs ultimately land in the index.",
+                "Job Seek is a search engine for both active candidates and professionals who passively track " +
+                "the market—it surfaces fresh roles while staying respectful of employer infrastructure. This " +
+                "page documents exactly how our crawler behaves, the controls that keep it polite, and how jobs " +
+                "ultimately land in the index.",
         },
         botName: "JobSeekBot",
         contactEmail: "business@colophon-group.org",
@@ -142,15 +159,19 @@ export const siteCopy = {
             items: [
                 {
                     title: "Respectful pacing.",
-                    body: "Every retry window uses exponential backoff so we never hammer an origin, and we bail if a host keeps timing out.",
+                    body: "Every retry window uses exponential backoff so we never hammer an origin, and we bail " +
+                        "if a host keeps timing out.",
                 },
                 {
                     title: "Robots, attribution, and TDM reservation.",
-                    body: "Our crawler reads robots.txt, honours disallow rules, identifies itself via User-Agent, and respects the W3C TDM-Reservation header—if a page signals reservation, we skip it.",
+                    body: "Our crawler reads `robots.txt`, honours disallow rules, identifies itself via " +
+                        "`User-Agent`, and respects the W3C `TDM-Reservation` header—if a page signals reservation, " +
+                        "we skip it.",
                 },
                 {
                     title: "One page per minute.",
-                    body: "Even after discovery we retrieve job detail pages at a strict limit of one request per site per minute.",
+                    body: "Even after discovery we retrieve job detail pages at a strict limit of one request per " +
+                        "site per minute.",
                 },
             ],
         },
@@ -159,42 +180,89 @@ export const siteCopy = {
             steps: [
                 {
                     title: "Sitemap first.",
-                    body: "We start by following sitemap declarations exposed via robots.txt or standard endpoints because it is the cheapest, most accurate channel for both parties.",
+                    body: "We start by following sitemap declarations exposed via `robots.txt` or standard endpoints " +
+                        "because it is the cheapest, most accurate channel for both parties.",
                 },
                 {
                     title: "Career page fallback.",
-                    body: "When no sitemap exists we crawl the canonical careers page, follow links that look like individual postings, and keep track of what we already saw.",
+                    body: "When no sitemap exists we crawl the canonical careers page, follow links that look like " +
+                        "individual postings, and keep track of what we already saw.",
                 },
                 {
                     title: "Graceful pagination.",
-                    body: "If the careers site is paginated we sort by newest roles, fetch the first few pages, and stop as soon as previously indexed roles appear—avoiding deep pagination scrapes.",
+                    body: "If the careers site is paginated we sort by newest roles, fetch the first few pages, " +
+                        "and stop as soon as previously indexed roles appear—avoiding deep pagination scrapes.",
                 },
                 {
                     title: "Selective storage.",
-                    body: "After we collect candidate URLs we download them one-by-one (still one per minute) and persist only role-specific data such as title, description, location, compensation notes, and other job-related metadata surfaced on the page. We never store unrelated site content.",
+                    body: "After we collect candidate URLs we download them one-by-one (still one per minute) and " +
+                        "persist only role-specific data such as title, description, location, compensation notes, " +
+                        "and other job-related metadata surfaced on the page. We never store unrelated site content.",
                 },
             ],
         },
-        sitemapNote: {
-            prefix: "We strongly encourage publishing an easily discoverable sitemap for your careers section. Without it, we periodically mint lightweight",
-            code: "HEAD",
-            suffix: "requests against previously discovered job URLs to confirm they are still live, which introduces unnecessary traffic.",
-        },
+        sitemapNote: "We strongly encourage publishing an easily discoverable sitemap for your careers section. " +
+            "Without it, we periodically mint lightweight `HEAD` requests against previously discovered job URLs " +
+            "to confirm they are still live, which introduces unnecessary traffic.",
         optOut: {
             title: "Opt-out or questions",
-            body: "If you notice unexpected activity from our crawler or prefer that your careers site not be indexed, please email us and we will respond promptly.",
+            body: "If you notice unexpected activity from our crawler or prefer that your careers site not be " +
+                "indexed, please email us and we will respond promptly.",
         },
         automation: {
             title: "Our stance on automation",
-            body: "We oppose handing hiring or job-search decisions over to black-box automation—whether on the employer or applicant side. Every outbound link we share includes utm_source=jobseek so recruiters recognise the traffic, and we continuously review usage patterns plus enforce friction to deter scripted applications.",
+            body: "We oppose handing hiring or job-search decisions over to black-box automation — whether on the " +
+                "employer or applicant side. Every outbound link we share includes `utm_source=jobseek` so recruiters " +
+                "recognise the traffic, and we continuously review usage patterns plus enforce friction to deter " +
+                "scripted applications.",
         },
         oss: {
             title: "Open-source crawlers",
-            body: "Transparency matters, so the code for our job link collection service and extraction pipeline is open source.",
+            body: "Transparency matters, so the code for our job link collection service and extraction pipeline is " +
+                "open source.",
         },
         outreach: {
             title: "Need to reach us?",
-            body: "If you notice unusual crawler behaviour, prefer that we do not index your content, or have suggestions on how to improve our safeguards, please reach out.",
+            body: "If you notice unusual crawler behaviour, prefer that we do not index your content, or have " +
+                "suggestions on how to improve our safeguards, please reach out.",
         },
+    },
+    dashboard: {
+        action: "To dashboard",
+        actionGoTo: "Go to dashboard",
+        actionOpen: "Open dashboard",
+    },
+    license: {
+        hero: {
+            eyebrow: "Licensing",
+            title: "License of Job Seek",
+            description:
+                "Job Seek’s codebase is open source under MIT. The job data we collect and enrich is " +
+                "Creative Commons BY-NC 4.0. Below is the plain-language summary — please read the full licenses " +
+                "for exact terms.",
+        },
+        code: {
+            title: "Application code (MIT License)",
+            summary: "You can use, modify, and redistribute the code in personal or commercial products as long as " +
+                "you include the copyright and license notice.",
+            rights: [
+                "Copy and modify the code for any purpose, including commercial products.",
+                "Redistribute your changes, as long as you include the MIT notice.",
+                "No warranty — use at your own risk.",
+            ],
+            linkLabel: "Read the full MIT License",
+        },
+        data: {
+            title: "Collection of job postings (CC BY-NC 4.0)",
+            summary: "You may reuse the job dataset with attribution for non-commercial purposes. Commercial " +
+                "usage requires prior written consent.",
+            rights: [
+                "Credit: “Viktor Shcherbakov, Collection of Job Postings” with a link to the source.",
+                "No commercial redistribution or resale without permission.",
+                "You can remix/transform the data for research or personal dashboards.",
+            ],
+            linkLabel: "Read the CC BY-NC 4.0 License",
+        },
+        contactCta: "Questions about licensing or commercial use? Email us.",
     },
 };

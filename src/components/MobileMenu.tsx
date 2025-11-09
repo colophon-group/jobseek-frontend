@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { siteCopy } from "@/content/site";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { ThemedImage } from "@/components/ThemedImage";
+import { useUser } from "@stackframe/stack";
 
 const CloseIcon = dynamic(() => import("@mui/icons-material/Close"), { ssr: false });
 
@@ -14,6 +15,11 @@ type MobileMenuProps = {
 };
 
 export function MobileMenu({ open, onCloseAction }: MobileMenuProps) {
+    const user = useUser();
+    const isLoggedIn = Boolean(user);
+    const authHref = isLoggedIn ? "/dashboard" : siteCopy.nav.login.href;
+    const authLabel = isLoggedIn ? "To dashboard" : siteCopy.auth.login;
+
     if (!open) return null;
 
     return (
@@ -65,10 +71,10 @@ export function MobileMenu({ open, onCloseAction }: MobileMenuProps) {
 
                 <div className="mt-4 border-t border-white/5 pt-4">
                     <a
-                        href={siteCopy.nav.login.href}
+                        href={authHref}
                         className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-white/5"
                     >
-                        {siteCopy.auth.login}
+                        {authLabel}
                     </a>
                 </div>
             </div>

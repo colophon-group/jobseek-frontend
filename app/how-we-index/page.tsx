@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { HowWeIndexContent } from "@/components/HowWeIndexContent";
+import { createPageMetadata } from "@/lib/metadata";
+import { siteCopy } from "@/content/site";
 
-export const metadata: Metadata = {
-    title: "How we index jobs | Job Seek",
-    description: "Learn how Job Seek discovers, fetches, and stores job postings while respecting publishers.",
-};
+export const metadata: Metadata = createPageMetadata({
+    title: `${siteCopy.name} | How we index jobs`,
+    description: siteCopy.indexing.hero.description,
+    path: "/how-we-index",
+});
 
 export default function HowWeIndexPage() {
     return <HowWeIndexContent />;

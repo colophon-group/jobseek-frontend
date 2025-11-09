@@ -22,3 +22,10 @@ Visit `http://localhost:3000` and edit copy in `src/content/site.ts` to customiz
 1. Install dependencies and build: `npm install && npm run build`.
 2. Start the production server: `npm run start`.
 3. Serve the app behind your platform’s reverse proxy on port `3000`.
+
+## License
+
+- Application code: [MIT License](https://github.com/colophon-group/jobseek-frontend/blob/main/LICENSE)
+- Job data (Collection of Job Postings): [CC BY-NC 4.0](https://github.com/colophon-group/jobseek-frontend/blob/main/LICENSE-JOB-DATA)
+
+See `/license` in the app for a plain-language summary.
