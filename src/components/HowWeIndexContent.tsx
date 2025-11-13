@@ -24,10 +24,11 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 export function HowWeIndexContent() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const indexing = siteCopy.indexing;
+    const sectionScrollMargin = { xs: 96, md: 128 } as const;
     const sectionLayoutSx = {
         width: "100%",
         maxWidth: 840,
-        scrollMarginTop: { xs: 96, md: 128 },
+        scrollMarginTop: sectionScrollMargin,
     };
     const monkArt = siteCopy.publicdomain?.the_monk;
     const monkMaxWidth = 320;
@@ -172,44 +173,62 @@ export function HowWeIndexContent() {
                             <Stack
                                 spacing={4}
                                 divider={<Divider sx={{ borderColor: "divider" }} />}
-                                sx={{ ...sectionLayoutSx, "& > div": { scrollMarginTop: sectionLayoutSx.scrollMarginTop } }}
+                                sx={{ width: "100%", maxWidth: 840 }}
                             >
-                                <div id={anchorFor("optOut")}>
-                                    <Typography variant="h5">{indexing.optOut.title}</Typography>
-                                    <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-                                        {renderInlineCode(indexing.optOut.body)}{" "}
-                                        <Link href={`mailto:${indexing.contactEmail}`}>{indexing.contactEmail}</Link>.
-                                    </Typography>
-                                </div>
-
-                                <div id={anchorFor("automation")}>
-                                    <Typography variant="h5">{indexing.automation.title}</Typography>
-                                    <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-                                        {renderInlineCode(indexing.automation.body)}
-                                    </Typography>
-                                </div>
-
-                                <div id={anchorFor("oss")}>
-                                    <Typography variant="h5">{indexing.oss.title}</Typography>
-                                    <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-                                        {renderInlineCode(indexing.oss.body)} Browse the repository at{" "}
-                                        <Link href={indexing.ossRepoUrl} target="_blank" rel="noreferrer">
-                                            {indexing.ossRepoUrl.replace("https://", "")}
-                                        </Link>
-                                        .
-                                    </Typography>
-                                </div>
-
-                                <div id={anchorFor("outreach")}>
-                                    <Typography variant="h5">{indexing.outreach.title}</Typography>
-                                    <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-                                        {renderInlineCode(indexing.outreach.body)}{" "}
-                                        <Link href={`mailto:${indexing.contactEmail}`}>
-                                            {indexing.contactEmail}
-                                        </Link>
-                                        .
-                                    </Typography>
-                                </div>
+                                {[
+                                    {
+                                        id: "optOut",
+                                        title: indexing.optOut.title,
+                                        body: (
+                                            <>
+                                                {renderInlineCode(indexing.optOut.body)}{" "}
+                                                <Link href={`mailto:${indexing.contactEmail}`}>
+                                                    {indexing.contactEmail}
+                                                </Link>
+                                                .
+                                            </>
+                                        ),
+                                    },
+                                    {
+                                        id: "automation",
+                                        title: indexing.automation.title,
+                                        body: renderInlineCode(indexing.automation.body),
+                                    },
+                                    {
+                                        id: "oss",
+                                        title: indexing.oss.title,
+                                        body: (
+                                            <>
+                                                {renderInlineCode(indexing.oss.body)} {" "}
+                                                Browse the repository at {" "}
+                                                <Link href={indexing.ossRepoUrl} target="_blank" rel="noreferrer">
+                                                    {indexing.ossRepoUrl.replace("https://", "")}
+                                                </Link>
+                                                .
+                                            </>
+                                        ),
+                                    },
+                                    {
+                                        id: "outreach",
+                                        title: indexing.outreach.title,
+                                        body: (
+                                            <>
+                                                {renderInlineCode(indexing.outreach.body)}{" "}
+                                                <Link href={`mailto:${indexing.contactEmail}`}>
+                                                    {indexing.contactEmail}
+                                                </Link>
+                                                .
+                                            </>
+                                        ),
+                                    },
+                                ].map((section) => (
+                                    <Box key={section.id} id={anchorFor(section.id)} sx={{ scrollMarginTop: sectionScrollMargin }}>
+                                        <Typography variant="h5">{section.title}</Typography>
+                                        <Typography color="text.secondary" sx={{ mt: 1.5 }}>
+                                            {section.body}
+                                        </Typography>
+                                    </Box>
+                                ))}
                             </Stack>
                         </Stack>
 
