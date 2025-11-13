@@ -100,7 +100,8 @@ export function PublicDomainArt({
             sx={{
                 position: "relative",
                 overflow: "hidden",
-                boxShadow: "0px 45px 120px rgba(15, 23, 42, 0.25)",
+                borderRadius: 2,
+                boxShadow: "0px 8px 24px rgba(15, 23, 42, 0.16)",
                 minHeight: "100%",
                 ...sx,
             }}

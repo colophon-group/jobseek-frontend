@@ -47,7 +47,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     return (
         <html lang="en" className={initialTheme === "dark" ? "dark" : ""} data-theme={initialTheme}>
         <body
-            className={`${jetbrainsSans.variable} ${jetbrainsMono.variable} antialiased bg-[var(--background)] text-[var(--foreground)]`}
+            className={`${jetbrainsSans.variable} ${jetbrainsMono.variable} antialiased`}
+            style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}
         >
         <Analytics />
         <SpeedInsights />

@@ -40,7 +40,7 @@ export function LicenseContent() {
     const heroArtAspect = heroArt ? heroArt.width / heroArt.height : 1;
 
     return (
-        <Box minHeight="100vh" bgcolor="background.default" color="text.primary">
+        <Box minHeight="100vh" sx={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
             <Header onOpenMobileAction={() => setMobileOpen(true)} />
             <MobileMenu open={mobileOpen} onCloseAction={() => setMobileOpen(false)} />
 

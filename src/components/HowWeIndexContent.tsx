@@ -38,7 +38,7 @@ export function HowWeIndexContent() {
     }));
 
     return (
-        <Box minHeight="100vh" bgcolor="background.default" color="text.primary">
+        <Box minHeight="100vh" sx={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
             <Header onOpenMobileAction={() => setMobileOpen(true)} />
             <MobileMenu open={mobileOpen} onCloseAction={() => setMobileOpen(false)} />
 

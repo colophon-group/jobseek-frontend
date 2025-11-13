@@ -28,7 +28,7 @@ const iconMap: Record<string, ElementType> = {
 const TEXT_COLUMN_WIDTH = 520;
 const IMAGE_BORDER_RADIUS = 24;
 const EXTRA_WIDE_BREAKPOINT = 2448;
-const MEDIA_SHADOW = "0px 45px 120px rgba(15, 23, 42, 0.25)";
+const MEDIA_SHADOW = "0px 12px 32px rgba(15, 23, 42, 0.18)";
 
 const heroStartOffset = (theme: Theme) =>
     `calc((100vw - ${theme.breakpoints.values.lg}px) / 2 + ${theme.spacing(3)})`;
@@ -84,7 +84,7 @@ const featureRowBaseStyles = (mediaWidth: number, align: "left" | "right" = "lef
     };
 };
 
-const buildImageWrapperSx = (mediaWidth: number, inverted: boolean) => (theme: Theme) => ({
+const buildImageWrapperSx = (mediaWidth: number, inverted: boolean) => ({
     width: "100%",
     maxWidth: mediaWidth,
     borderTopLeftRadius: inverted
@@ -263,6 +263,9 @@ export function Features() {
                 py: { xs: 8, md: 12 },
                 overflowX: "hidden",
                 overflowY: "visible",
+                position: "relative",
+                zIndex: 1,
+                pb: { xs: 4, md: 6 },
             }}
         >
             <Stack spacing={{ xs: 12, md: 16 }}>

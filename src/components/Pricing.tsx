@@ -70,7 +70,7 @@ export function Pricing() {
                                         : theme.palette.mode === "light" && isFreeTier
                                             ? theme.palette.grey[300]
                                             : theme.palette.divider,
-                                    boxShadow: tier.highlight ? theme.shadows[8] : "none",
+                                    boxShadow: tier.highlight ? theme.shadows[2] : "none",
                                     width: "100%",
                                 })}
                             >
