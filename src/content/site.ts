@@ -31,6 +31,10 @@ export const siteCopy = {
             ariaLabel: "Page contents",
         },
         publicDomainCreditFallback: "Public Domain",
+        externalLinkTracking: {
+            utmParam: "utm_source",
+            utmValue: "jobseek",
+        },
     },
     hero: {
         eyebrow: "Keep your hand on the job market pulse.",

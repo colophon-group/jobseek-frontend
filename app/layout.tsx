@@ -7,6 +7,7 @@ import { stackClientApp } from "@/stack/client";
 import { cookies } from "next/headers";
 import localFont from "next/font/local";
 import { createPageMetadata } from "@/lib/metadata";
+import { ExternalLinkTracker } from "@/components/ExternalLinkTracker";
 import "./globals.css";
 
 const jetbrainsSans = localFont({
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             className={`${jetbrainsSans.variable} ${jetbrainsMono.variable} antialiased`}
             style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}
         >
+        <ExternalLinkTracker />
         <Analytics />
         <SpeedInsights />
         <StackProvider app={stackClientApp}>

@@ -11,7 +11,7 @@ MASTER_DIR = PUBLIC_DOMAIN_DIR / "master"
 paths = sorted(MASTER_DIR.glob("*.jpg"))
 
 
-def boost_alpha(a: int, factor: float = 5.0) -> int:
+def boost_alpha(a: int, factor: float = 1.2) -> int:
     """
     Increase separation: alphas above mid get higher,
     alphas below mid get lower.
