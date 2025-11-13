@@ -1,5 +1,6 @@
-import { siteCopy } from "@/content/site";
 "use client";
+
+import { siteCopy } from "@/content/site";
 
 import { useEffect } from "react";
 
