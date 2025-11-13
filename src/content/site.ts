@@ -256,7 +256,6 @@ export const siteCopy = {
             overview: { label: "Overview", anchor: "indexing-overview" },
             assurances: { label: "Crawling assurances", anchor: "indexing-assurances" },
             ingestion: { label: "How postings enter the index", anchor: "indexing-ingestion" },
-            sitemap: { label: "Sitemap guidance", anchor: "indexing-sitemap" },
             optOut: { label: "Opt-out or questions", anchor: "indexing-opt-out" },
             automation: { label: "Our stance on automation", anchor: "indexing-automation" },
             oss: { label: "Open-source crawlers", anchor: "indexing-oss" },
@@ -467,7 +466,7 @@ export const siteCopy = {
             date: "1523-5",
             crop: {
                 left: 50,
-                bottom: 50,
+                bottom: 120,
             },
         },
         expulsion_from_paradise: {

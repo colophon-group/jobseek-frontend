@@ -23,7 +23,11 @@ export function LicenseContent() {
     const codeLink = `${siteCopy.repoUrl}/blob/main/LICENSE`;
     const dataLink = `${siteCopy.repoUrl}/blob/main/LICENSE-JOB-DATA`;
     const contactEmail = siteCopy.indexing.contactEmail;
-    const sectionLayoutSx = { width: "100%", maxWidth: 840 };
+    const sectionLayoutSx = {
+        width: "100%",
+        maxWidth: 840,
+        scrollMarginTop: { xs: 96, md: 128 },
+    };
     const contentsNav = license.contentsNav as Record<string, { label: string; anchor?: string }> | undefined;
     const navEntries = contentsNav ? Object.entries(contentsNav) : [];
     const anchorFor = (key: string) => contentsNav?.[key]?.anchor ?? `license-${key}`;
@@ -35,7 +39,7 @@ export function LicenseContent() {
     const heroArtKey = license.hero.art?.assetKey as keyof typeof siteCopy.publicdomain | undefined;
     const heroArt = heroArtKey ? siteCopy.publicdomain?.[heroArtKey] : undefined;
     const heroArtFocus = license.hero.art?.focus;
-    const heroArtMaxWidth = 320;
+    const heroArtMaxWidth = 300;
     const heroArtWidth = heroArt ? Math.min(heroArt.width, heroArtMaxWidth) : undefined;
     const heroArtAspect = heroArt ? heroArt.width / heroArt.height : 1;
 
@@ -82,7 +86,7 @@ export function LicenseContent() {
                                                 justifyContent: "center",
                                                 aspectRatio: heroArtAspect,
                                                 minHeight: { xs: 240, md: "auto" },
-                                                maxHeight: { xs: 320, md: "none" },
+                                                maxHeight: { xs: 320, md: "100%" },
                                                 mx: "auto",
                                             }}
                                         >

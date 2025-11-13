@@ -24,7 +24,11 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 export function HowWeIndexContent() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const indexing = siteCopy.indexing;
-    const sectionLayoutSx = { width: "100%", maxWidth: 840 };
+    const sectionLayoutSx = {
+        width: "100%",
+        maxWidth: 840,
+        scrollMarginTop: { xs: 96, md: 128 },
+    };
     const monkArt = siteCopy.publicdomain?.the_monk;
     const monkMaxWidth = 320;
     const monkEffectiveWidth = monkArt ? Math.min(monkArt.width, monkMaxWidth) : undefined;
@@ -165,10 +169,10 @@ export function HowWeIndexContent() {
                                 {renderInlineCode(indexing.sitemapNote)}
                             </Alert>
 
-                        <Stack
+                            <Stack
                                 spacing={4}
                                 divider={<Divider sx={{ borderColor: "divider" }} />}
-                                sx={sectionLayoutSx}
+                                sx={{ ...sectionLayoutSx, "& > div": { scrollMarginTop: sectionLayoutSx.scrollMarginTop } }}
                             >
                                 <div id={anchorFor("optOut")}>
                                     <Typography variant="h5">{indexing.optOut.title}</Typography>
