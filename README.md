@@ -1,6 +1,6 @@
 # Job Seek Frontend
 
-Marketing landing page for Job Seek, a job-search companion that lets users follow target companies, track applications, and switch between light/dark themes. Built with Next.js 16 (App Router), React 19, TailwindCSS 4, Stackframe auth surfaces, and MUI icons.
+Marketing landing page for Job Seek, a job-search companion that lets users follow target companies, track applications, and switch between light/dark themes. Built with Next.js 16 (App Router), React 19, the MUI component library, Stackframe auth surfaces, and a small custom CSS design system (no Tailwind required).
 
 ## Local Development
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:3000` and edit copy in `src/content/site.ts` to customize navigation, hero text, and feature data.
+Visit `http://localhost:3000` and edit copy in `src/content/site.ts` to customize navigation, hero text, feature sections, and which public-domain artwork appears in each slot.
 
 ## Deployment
 

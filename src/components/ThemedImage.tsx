@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useContext } from "react";
+import type { CSSProperties } from "react";
 import { ThemeContext } from "@/components/ThemeProvider";
 
 type ThemedImageProps = {
@@ -11,6 +12,7 @@ type ThemedImageProps = {
     width: number;
     height: number;
     className?: string;
+    style?: CSSProperties;
 };
 
 export function ThemedImage({
@@ -20,10 +22,11 @@ export function ThemedImage({
                                 width,
                                 height,
                                 className,
+                                style,
                             }: ThemedImageProps) {
     const { mode } = useContext(ThemeContext);
     const src = mode === "dark" ? darkSrc : lightSrc;
     return (
-        <Image src={src} alt={alt} width={width} height={height} className={className} />
+        <Image src={src} alt={alt} width={width} height={height} className={className} style={style} />
     );
 }

@@ -5,82 +5,155 @@ import { siteCopy } from "@/content/site";
 import { Header } from "@/components/Header";
 import { MobileMenu } from "@/components/MobileMenu";
 import { Footer } from "@/components/Footer";
+import { TableOfContents } from "@/components/TableOfContents";
+import { PublicDomainArt } from "@/components/PublicDomainArt";
 import { renderInlineCode } from "@/lib/renderInlineCode";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Link from "@mui/material/Link";
 
 export function LicenseContent() {
     const [mobileOpen, setMobileOpen] = useState(false);
-    const content = siteCopy.license;
+    const license = siteCopy.license;
     const codeLink = `${siteCopy.repoUrl}/blob/main/LICENSE`;
     const dataLink = `${siteCopy.repoUrl}/blob/main/LICENSE-JOB-DATA`;
     const contactEmail = siteCopy.indexing.contactEmail;
+    const sectionLayoutSx = { width: "100%", maxWidth: 840 };
+    const contentsNav = license.contentsNav as Record<string, { label: string; anchor?: string }> | undefined;
+    const navEntries = contentsNav ? Object.entries(contentsNav) : [];
+    const anchorFor = (key: string) => contentsNav?.[key]?.anchor ?? `license-${key}`;
+    const tocItems = navEntries.map(([key, entry]) => ({
+        label: entry.label,
+        href: `#${anchorFor(key)}`,
+    }));
+
+    const heroArtKey = license.hero.art?.assetKey as keyof typeof siteCopy.publicdomain | undefined;
+    const heroArt = heroArtKey ? siteCopy.publicdomain?.[heroArtKey] : undefined;
+    const heroArtFocus = license.hero.art?.focus;
+    const heroArtMaxWidth = 320;
+    const heroArtWidth = heroArt ? Math.min(heroArt.width, heroArtMaxWidth) : undefined;
+    const heroArtAspect = heroArt ? heroArt.width / heroArt.height : 1;
 
     return (
-        <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+        <Box minHeight="100vh" bgcolor="background.default" color="text.primary">
             <Header onOpenMobileAction={() => setMobileOpen(true)} />
             <MobileMenu open={mobileOpen} onCloseAction={() => setMobileOpen(false)} />
 
-            <main className="section-pad">
-                <div className="container-6xl stack-lg">
-                    <header className="stack-md article-intro">
-                        <p className="eyebrow">{content.hero.eyebrow}</p>
-                        <h1>{content.hero.title}</h1>
-                        <p>{renderInlineCode(content.hero.description)}</p>
-                    </header>
-
-                    <article className="md-article">
-                        <section className="md-block">
-                            <h2>{content.code.title}</h2>
-                            <p>{content.code.summary}</p>
-                            <ul>
-                                {content.code.rights.map((item) => (
-                                    <li key={item}>{renderInlineCode(item)}</li>
-                                ))}
-                            </ul>
-                            <a
-                                className="font-semibold text-[var(--foreground)] underline"
-                                href={codeLink}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {content.code.linkLabel}
-                            </a>
-                        </section>
-
-                        <section className="md-block">
-                            <h2>{content.data.title}</h2>
-                            <p>{content.data.summary}</p>
-                            <ul>
-                                {content.data.rights.map((item) => (
-                                    <li key={item}>{renderInlineCode(item)}</li>
-                                ))}
-                            </ul>
-                            <a
-                                className="font-semibold text-[var(--foreground)] underline"
-                                href={dataLink}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {content.data.linkLabel}
-                            </a>
-                        </section>
-
-                        <section className="md-block">
-                            <p>
-                                {content.contactCta}{" "}
-                                <a
-                                    className="font-semibold text-[var(--foreground)] underline"
-                                    href={`mailto:${contactEmail}`}
+            <Box component="main" py={{ xs: 6, md: 10 }}>
+                <Container maxWidth="lg">
+                    <Stack
+                        direction={{ xs: "column", lg: "row" }}
+                        spacing={{ xs: 6, lg: 10 }}
+                        alignItems="flex-start"
+                    >
+                        <Stack spacing={{ xs: 6, md: 8 }} sx={{ flex: 1 }}>
+                            <Box sx={sectionLayoutSx} id={anchorFor("overview")}>
+                                <Stack
+                                    direction={{ xs: "column", md: "row" }}
+                                    spacing={{ xs: 4, md: 6 }}
+                                    alignItems={{ xs: "stretch", md: "flex-start" }}
+                                    justifyContent="center"
                                 >
-                                    {contactEmail}
-                                </a>
-                                .
-                            </p>
-                        </section>
-                    </article>
-                </div>
-            </main>
+                                    <Stack spacing={2} sx={{ flex: 1 }}>
+                                        <Typography variant="overline" color="text.secondary" letterSpacing={1.5}>
+                                            {license.hero.eyebrow}
+                                        </Typography>
+                                        <Typography variant="h3" component="h1">
+                                            {license.hero.title}
+                                        </Typography>
+                                        <Typography color="text.secondary">
+                                            {renderInlineCode(license.hero.description)}
+                                        </Typography>
+                                    </Stack>
+                                    {heroArt && heroArtWidth && (
+                                        <Box
+                                            sx={{
+                                                flexBasis: { md: heroArtWidth },
+                                                flexShrink: 0,
+                                                width: "100%",
+                                                maxWidth: { xs: "100%", md: heroArtWidth },
+                                                order: { xs: 2, md: 2 },
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                aspectRatio: heroArtAspect,
+                                                minHeight: { xs: 240, md: "auto" },
+                                                maxHeight: { xs: 320, md: "none" },
+                                                mx: "auto",
+                                            }}
+                                        >
+                                            <PublicDomainArt
+                                                asset={heroArt}
+                                                focus={heroArtFocus}
+                                                credit={true}
+                                                sx={{ width: "100%", height: "100%" }}
+                                            />
+                                        </Box>
+                                    )}
+                                </Stack>
+                            </Box>
+
+                            <Paper variant="outlined" sx={{ ...sectionLayoutSx, p: { xs: 3, md: 4 } }} id={anchorFor("code")}>
+                                <Typography variant="h5">{license.code.title}</Typography>
+                                <Typography color="text.secondary" sx={{ mt: 1 }}>
+                                    {license.code.summary}
+                                </Typography>
+                                <List sx={{ listStyleType: "disc", pl: 3 }}>
+                                    {license.code.rights.map((item) => (
+                                        <ListItem key={item} sx={{ display: "list-item", pl: 1 }}>
+                                            {renderInlineCode(item)}
+                                        </ListItem>
+                                    ))}
+                                </List>
+                                <Link href={codeLink} target="_blank" rel="noreferrer" fontWeight={600}>
+                                    {license.code.linkLabel}
+                                </Link>
+                            </Paper>
+
+                            <Paper variant="outlined" sx={{ ...sectionLayoutSx, p: { xs: 3, md: 4 } }} id={anchorFor("data")}>
+                                <Typography variant="h5">{license.data.title}</Typography>
+                                <Typography color="text.secondary" sx={{ mt: 1 }}>
+                                    {license.data.summary}
+                                </Typography>
+                                <List sx={{ listStyleType: "disc", pl: 3 }}>
+                                    {license.data.rights.map((item) => (
+                                        <ListItem key={item} sx={{ display: "list-item", pl: 1 }}>
+                                            {renderInlineCode(item)}
+                                        </ListItem>
+                                    ))}
+                                </List>
+                                <Link href={dataLink} target="_blank" rel="noreferrer" fontWeight={600}>
+                                    {license.data.linkLabel}
+                                </Link>
+                            </Paper>
+
+                            <Box sx={sectionLayoutSx} id={anchorFor("contact")}>
+                                <Typography variant="h5" sx={{ mb: 1.5 }}>
+                                    Contact
+                                </Typography>
+                                <Typography color="text.secondary">
+                                    {license.contactCta}{" "}
+                                    <Link href={`mailto:${contactEmail}`}>{contactEmail}</Link>
+                                </Typography>
+                            </Box>
+                        </Stack>
+
+                        <TableOfContents
+                            items={tocItems}
+                            sx={{
+                                maxWidth: 260,
+                                display: { xs: "none", md: "block" },
+                            }}
+                        />
+                    </Stack>
+                </Container>
+            </Box>
 
             <Footer />
-        </div>
+        </Box>
     );
 }

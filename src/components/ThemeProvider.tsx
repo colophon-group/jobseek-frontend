@@ -1,6 +1,9 @@
 "use client";
 
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
+import { CssBaseline, PaletteMode, ThemeProvider as MuiThemeProvider } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { buildMuiTheme } from "@/theme/createMuiTheme";
 
 type ThemeMode = "light" | "dark";
 
@@ -39,12 +42,19 @@ export function ThemeProvider({ children, initialTheme = "dark" }: { children: R
             root.classList.remove("dark");
         }
         localStorage.setItem("theme", mode);
-        document.cookie = `theme=${mode}; path=/; max-age=31536000`
+        document.cookie = `theme=${mode}; path=/; max-age=31536000`;
     }, [mode]);
+
+    const muiTheme = useMemo(() => buildMuiTheme(mode as PaletteMode), [mode]);
 
     return (
         <ThemeContext.Provider value={{ mode, setMode }}>
-            {children}
+            <AppRouterCacheProvider>
+                <MuiThemeProvider theme={muiTheme}>
+                    <CssBaseline enableColorScheme />
+                    {children}
+                </MuiThemeProvider>
+            </AppRouterCacheProvider>
         </ThemeContext.Provider>
     );
 }

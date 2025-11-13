@@ -6,6 +6,15 @@ import { siteCopy } from "@/content/site";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { ThemedImage } from "@/components/ThemedImage";
 import { useUser } from "@stackframe/stack";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
 
 const CloseIcon = dynamic(() => import("@mui/icons-material/Close"), { ssr: false });
 
@@ -17,67 +26,56 @@ type MobileMenuProps = {
 export function MobileMenu({ open, onCloseAction }: MobileMenuProps) {
     const user = useUser();
     const isLoggedIn = Boolean(user);
-    const authHref = isLoggedIn ? "/dashboard" : siteCopy.nav.login.href;
-    const authLabel = isLoggedIn ? "To dashboard" : siteCopy.auth.login;
-
-    if (!open) return null;
+    const authHref = isLoggedIn ? siteCopy.nav.dashboard.href : siteCopy.nav.login.href;
+    const authLabel = isLoggedIn ? siteCopy.dashboard.action : siteCopy.auth.login;
+    const navItems = Object.values(siteCopy.nav).filter((item) => !item.hide);
 
     return (
-        <>
-            {/* overlay */}
-            <div
-                className="fixed inset-0 z-50 bg-black/60 lg:hidden"
-                onClick={onCloseAction}
-            />
-
-            {/* panel */}
-            <div className="fixed inset-y-0 right-0 z-50 w-72 panel-raised px-4 py-6 lg:hidden">
-                <div className="flex items-center justify-between gap-2">
-                    <Link href="/" className="flex items-center gap-2">
+        <Drawer anchor="right" open={open} onClose={onCloseAction} PaperProps={{ sx: { width: 320 } }}>
+            <Box sx={{ px: 2.5, py: 3 }}>
+                <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+                    <Box
+                        component={Link}
+                        href="/"
+                        onClick={onCloseAction}
+                        sx={{ display: "inline-flex", alignItems: "center", gap: 1, textDecoration: "none" }}
+                    >
                         <ThemedImage
                             darkSrc={siteCopy.logoWide.dark}
                             lightSrc={siteCopy.logoWide.light}
                             alt={siteCopy.logoWide.alt}
                             width={siteCopy.logoWide.width}
                             height={siteCopy.logoWide.height}
+                            style={{ height: 32, width: "auto" }}
                         />
-                    </Link>
-                    <div className="flex items-center gap-1">
+                    </Box>
+                    <Stack direction="row" spacing={1} alignItems="center">
                         <ThemeToggleButton />
-                        <button
-                            type="button"
-                            onClick={onCloseAction}
-                            className="icon-btn"
-                        >
-                            <span className="sr-only">{siteCopy.mobileMenu.closeMenu}</span>
+                        <IconButton onClick={onCloseAction} aria-label={siteCopy.mobileMenu.closeMenu}>
                             <CloseIcon fontSize="small" />
-                        </button>
-                    </div>
-                </div>
+                        </IconButton>
+                    </Stack>
+                </Stack>
 
-                <div className="mt-6 space-y-2">
-                    {Object.values(siteCopy.nav)
-                        .filter((item) => !item.hide)
-                        .map((item) => (
-                            <a
-                                key={item.label}
-                                href={item.href}
-                                className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-white/5"
-                            >
-                                {item.label}
-                            </a>
-                        ))}
-                </div>
+                <List sx={{ mt: 2 }}>
+                    {navItems.map((item) => (
+                        <ListItemButton
+                            key={item.label}
+                            component={Link}
+                            href={item.href}
+                            onClick={onCloseAction}
+                        >
+                            <ListItemText primary={item.label} />
+                        </ListItemButton>
+                    ))}
+                </List>
 
-                <div className="mt-4 border-t border-white/5 pt-4">
-                    <a
-                        href={authHref}
-                        className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-white/5"
-                    >
-                        {authLabel}
-                    </a>
-                </div>
-            </div>
-        </>
+                <Divider sx={{ my: 2 }} />
+
+                <Button href={authHref} fullWidth variant="outlined" size="large" onClick={onCloseAction}>
+                    {authLabel}
+                </Button>
+            </Box>
+        </Drawer>
     );
 }

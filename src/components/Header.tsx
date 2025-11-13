@@ -5,8 +5,13 @@ import { siteCopy } from "@/content/site";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { ThemedImage } from "@/components/ThemedImage";
 import { useUser } from "@stackframe/stack";
-
-// static imports -> no flashing
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 
@@ -19,53 +24,107 @@ export function Header({ onOpenMobileAction }: HeaderProps) {
     const isLoggedIn = Boolean(user);
     const authHref = isLoggedIn ? siteCopy.nav.dashboard.href : siteCopy.nav.login.href;
     const authLabel = isLoggedIn ? siteCopy.dashboard.action : siteCopy.auth.login;
+    const navItems = Object.values(siteCopy.nav).filter((item) => !item.hide);
 
     return (
-        <header className="sticky top-0 z-50 surface-header">
-            <nav className="container-6xl flex items-center justify-between py-4">
-                <div className="flex items-center gap-2">
-                    <Link href="/" className="flex items-center gap-2">
+        <AppBar
+            position="sticky"
+            color="transparent"
+            elevation={0}
+            sx={{
+                backdropFilter: "blur(12px)",
+                borderBottom: 1,
+                borderColor: "divider",
+            }}
+        >
+            <Container maxWidth="lg">
+                <Toolbar disableGutters sx={{ minHeight: 72, gap: 2 }}>
+                    <Box component={Link} href="/" sx={{ display: "inline-flex", alignItems: "center", gap: 1 }}>
                         <ThemedImage
                             lightSrc={siteCopy.logoWide.light}
                             darkSrc={siteCopy.logoWide.dark}
                             alt={siteCopy.logoWide.alt}
                             width={siteCopy.logoWide.width}
                             height={siteCopy.logoWide.height}
-                            className="h-9 w-auto"
+                            style={{ height: 36, width: "auto" }}
                         />
-                    </Link>
-                </div>
+                    </Box>
 
-                {/* Desktop nav */}
-                <div className="hidden items-center gap-8 lg:flex">
-                    {Object.values(siteCopy.nav)
-                        .filter((item) => !item.hide)
-                        .map((item) => (
-                            <a key={item.label} href={item.href} className="nav-link">
+                    <Box flexGrow={1} />
+
+                    <Stack
+                        component="nav"
+                        direction="row"
+                        spacing={2.5}
+                        sx={{ display: { xs: "none", md: "flex" } }}
+                    >
+                        {navItems.map((item) => (
+                            <Button
+                                key={item.label}
+                                component={Link}
+                                href={item.href}
+                                variant="outlined"
+                                color="inherit"
+                                size="small"
+                                disableElevation
+                                sx={{
+                                    fontSize: "0.875rem",
+                                    fontWeight: 500,
+                                    textTransform: "none",
+                                    px: 1.5,
+                                    py: 0.5,
+                                    borderColor: "transparent",
+                                    color: "text.primary",
+                                    letterSpacing: 0.2,
+                                    minWidth: "auto",
+                                    "&:hover": {
+                                        borderColor: "transparent",
+                                        backgroundColor: "transparent",
+                                        color: "text.secondary",
+                                    },
+                                    "&:focus-visible": {
+                                        outline: "none",
+                                        borderColor: "transparent",
+                                    },
+                                }}
+                            >
                                 {item.label}
-                            </a>
+                            </Button>
                         ))}
-                </div>
+                    </Stack>
 
-                {/* Right side */}
-                <div className="hidden items-center gap-3 lg:flex">
-                    <ThemeToggleButton />
-                    <a href={authHref} className="header-dashboard-btn">
-                        <LoginIcon fontSize="small" />
-                        {authLabel}
-                    </a>
-                </div>
+                    <Stack
+                        direction="row"
+                        spacing={1.5}
+                        alignItems="center"
+                        sx={{ display: { xs: "none", md: "flex" } }}
+                    >
+                        <ThemeToggleButton />
+                        <Button
+                            component={Link}
+                            href={authHref}
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            startIcon={<LoginIcon fontSize="small" />}
+                            sx={{ "&:focus-visible": { outline: "none" } }}
+                        >
+                            {authLabel}
+                        </Button>
+                    </Stack>
 
-                {/* Mobile button */}
-                <button
-                    type="button"
-                    onClick={onOpenMobileAction}
-                    className="icon-btn lg:hidden inline-flex items-center justify-center"
-                >
-                    <span className="sr-only">{siteCopy.header.menuAction}</span>
-                    <MenuIcon fontSize="small" />
-                </button>
-            </nav>
-        </header>
+                    <IconButton
+                        edge="end"
+                        onClick={onOpenMobileAction}
+                        sx={{ display: { xs: "inline-flex", md: "none" } }}
+                        aria-label={siteCopy.header.menuAction}
+                        disableRipple
+                        disableFocusRipple
+                    >
+                        <MenuIcon fontSize="small" />
+                    </IconButton>
+                </Toolbar>
+            </Container>
+        </AppBar>
     );
 }
