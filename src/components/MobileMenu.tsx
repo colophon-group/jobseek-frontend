@@ -31,7 +31,12 @@ export function MobileMenu({ open, onCloseAction }: MobileMenuProps) {
     const navItems = Object.values(siteCopy.nav).filter((item) => !item.hide);
 
     return (
-        <Drawer anchor="right" open={open} onClose={onCloseAction} PaperProps={{ sx: { width: 320 } }}>
+        <Drawer
+            anchor="right"
+            open={open}
+            onClose={onCloseAction}
+            slotProps={{ paper: { sx: { width: 320 } } }}
+        >
             <Box sx={{ px: 2.5, py: 3 }}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
                     <Box
